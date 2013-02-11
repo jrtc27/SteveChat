@@ -120,13 +120,6 @@ public class ChannelHandler {
 				for (final Channel channel : this.channels) {
 					if (chatter.treatAsNew() && channel.shouldAutoJoinIfNew(player)) {
 						channel.addMember(player.getName());
-						synchronized (chatter) {
-							if (channel.equals(this.getMainChannel())) {
-								chatter.setActiveChannel(channel);
-							} else if (chatter.getActiveChannel() == null) {
-								chatter.setActiveChannel(channel);
-							}
-						}
 					}
 
 					if (channel.shouldAlwaysAutoJoin(player)) {
@@ -136,7 +129,18 @@ public class ChannelHandler {
 					if (channel.shouldAlwaysAutoLeave(player)) {
 						channel.removeMember(player.getName());
 					}
+
+					if (channel.isMember(player.getName())) {
+						synchronized (chatter) {
+							if (chatter.getActiveChannel() == null) {
+								chatter.setActiveChannel(channel);
+							}
+						}
+					}
 				}
+			}
+			if (this.getMainChannel() != null && this.getMainChannel().isMember(player.getName())) {
+				chatter.setActiveChannel(this.getMainChannel());
 			}
 			chatter.setTreatAsNew(false);
 			chatter.setModified(true);

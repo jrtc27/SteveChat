@@ -1,0 +1,24 @@
+name: ${project.name}
+main: com.jrtc27.stevechat.SteveChatPlugin
+version: ${plugin.yml.version}
+author: James Clarke (jrtc27)
+website: http://dev.bukkit.org/server-mods/stevechat/
+description: A simple yet powerful chat-handling plugin.
+softdepend: [Vault]
+commands:
+    stevechat:
+        description: The main command for SteveChat.
+        aliases: ['ch', 'chat']
+        usage: For help, please see /<command> help
+    me:
+        description: Perform the specified action in chat.
+        aliases: ['emote', 'action']
+        usage: /<command> <action>
+    tell:
+        description: Private message a player.
+        aliases: ['whisper', 'msg', 'message', 'pm']
+        usage: /<command> <to> [message]
+    r:
+        description: Reply to a private message.
+        aliases: ['reply', 'respond']
+        usage: /<command> [message]

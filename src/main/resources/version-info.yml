@@ -1,0 +1,3 @@
+version: '${project.version}'
+jenkins-build: '${project.build.number}'
+git: '${git.commit.info}'

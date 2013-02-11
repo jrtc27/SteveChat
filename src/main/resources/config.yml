@@ -1,0 +1,8 @@
+default-channel: Global
+default-format:
+  chat: '{color}{nick}&f: <{prefix}{sender}{suffix}&f> {msg}'
+  announce: '{color}{nick}&f: {msg}'
+  emote: '{color}{nick}&f: * {prefix}{sender}{suffix}&f {msg}'
+  private-message: '&d{tofrom} {partner}&d: {msg}'
+twitter-style-private-messages: true
+check-updates: true

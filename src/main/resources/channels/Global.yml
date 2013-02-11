@@ -1,0 +1,12 @@
+name: Global
+nick: G
+format: '{default}'
+password:
+color: DARK_GREEN
+radius: 0
+qm-shortcut: false
+announce-activity: true
+server-wide: true
+worlds: []
+banned: []
+muted: []

@@ -1,0 +1,12 @@
+name: Local
+nick: Local
+format: '{default}'
+password:
+color: BLUE
+radius: 500
+qm-shortcut: false
+announce-activity: true
+server-wide: true
+worlds: []
+banned: []
+muted: []

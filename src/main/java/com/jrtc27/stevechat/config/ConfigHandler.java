@@ -20,6 +20,7 @@ public class ConfigHandler {
 
 	public void load() {
 		this.plugin.saveDefaultConfig();
+		this.plugin.reloadConfig(); // Otherwise this.plugin.getConfig() will contain previously-loaded stuff on a reload
 		final FileConfiguration fileConfig = this.plugin.getConfig();
 
 		final String mainChannelName = fileConfig.getString("default-channel");

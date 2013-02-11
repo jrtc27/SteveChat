@@ -240,7 +240,7 @@ public class SteveChatPlugin extends JavaPlugin {
 			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			final String version = reader.readLine();
 			if (version != null) {
-				if (isVersionNewer(this.version, version)) {
+				if (this.isVersionNewer(this.version, version)) {
 					final String message = "A new recommended version (" + version + ") is available - please update for new features and fixes!";
 					this.logInfo(message);
 					final String playerMessage = "[SteveChat] " + message;

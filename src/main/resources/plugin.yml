@@ -14,6 +14,10 @@ commands:
         description: Perform the specified action in chat.
         aliases: ['emote', 'action']
         usage: /<command> <action>
+    qm:
+        description: Say something in another channel.
+        aliases: ['quickmessage']
+        usage: /<command> <channel> <message>
     tell:
         description: Private message a player.
         aliases: ['whisper', 'msg', 'message', 'pm']

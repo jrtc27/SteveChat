@@ -109,4 +109,9 @@ public class QuickMessageCommand extends ChatCommandBase {
 		}
 	}
 
+	@Override
+	public boolean canBeRoot() {
+		return true;
+	}
+
 }

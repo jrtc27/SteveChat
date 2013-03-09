@@ -92,6 +92,7 @@ public class PlayerListener implements Listener, TabExecutor {
 	private void registerDefinedCommands() {
 		this.plugin.getCommand("stevechat").setExecutor(this);
 		this.plugin.getCommand("me").setExecutor(this);
+		this.plugin.getCommand("qm").setExecutor(this);
 		this.plugin.getCommand("tell").setExecutor(this);
 		this.plugin.getCommand("r").setExecutor(this);
 	}

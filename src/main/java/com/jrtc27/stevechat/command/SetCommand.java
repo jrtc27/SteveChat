@@ -19,6 +19,7 @@ import com.jrtc27.stevechat.Util;
 
 public class SetCommand extends ChatCommandBase {
 	private static List<String> knownCommands = new ArrayList<String>(Arrays.asList("name", "nick", "format", "password", "color", "radius", "qm-shortcut", "announce-activity"));
+
 	static {
 		Collections.sort(knownCommands, String.CASE_INSENSITIVE_ORDER);
 	}

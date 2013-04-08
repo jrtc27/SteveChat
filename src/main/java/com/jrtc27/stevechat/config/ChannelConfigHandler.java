@@ -128,7 +128,7 @@ public class ChannelConfigHandler {
 
 	/**
 	 * To be called <em>after</em> initial setup.
-	 *
+	 * <p/>
 	 * NB: Will <strong>NOT</strong> check for duplicate names
 	 *
 	 * @param channel Channel to add

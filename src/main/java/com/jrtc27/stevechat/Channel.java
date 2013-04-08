@@ -120,7 +120,7 @@ public class Channel implements IPermissionDependency {
 		this.plugin.getServer().getConsoleSender().sendMessage(message);
 
 		for (final String name : this.members) {
-			final Player player = this.plugin.getServer().getPlayerExact(name);
+			final Player player = Util.getPlayer(name, false);
 			final Chatter recipient = this.plugin.channelHandler.chatterForPlayer(name);
 			if (player != null && (sender == null || !recipient.ignoring.contains(sender)) && this.inWorld(player)) {
 				player.sendMessage(message);

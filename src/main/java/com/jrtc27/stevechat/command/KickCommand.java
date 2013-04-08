@@ -60,7 +60,7 @@ public class KickCommand extends ChatCommandBase {
 			return true;
 		}
 
-		final Player onlinePlayer = this.plugin.getServer().getPlayerExact(player);
+		final Player onlinePlayer = Util.getPlayer(player, false);
 		final Chatter onlineChatter = this.plugin.channelHandler.chatterForPlayer(player);
 
 		channel.removeMember(player);

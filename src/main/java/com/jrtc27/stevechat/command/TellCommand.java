@@ -41,7 +41,7 @@ public class TellCommand extends ChatCommandBase {
 		if (recipientName.equalsIgnoreCase(Util.CONSOLE_COMMAND_SENDER_NAME)) {
 			recipient = this.plugin.getServer().getConsoleSender();
 		} else {
-			recipient = this.plugin.getServer().getPlayerExact(recipientName);
+			recipient = Util.getPlayer(recipientName, false);
 		}
 		if (recipient == null) {
 			sender.sendMessage(MessageColor.ERROR + "Unknown recipient: " + MessageColor.PLAYER + recipientName);

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -108,6 +109,10 @@ public class Util {
 
 	public static boolean isPermissionSet(final Player player, final String node) {
 		return player.isPermissionSet(node);
+	}
+
+	public static Player getPlayer(final String name, final boolean exact) {
+		return exact ? Bukkit.getServer().getPlayerExact(name) : Bukkit.getServer().getPlayer(name);
 	}
 
 	public static String getPrefix(final Player player) {

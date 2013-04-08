@@ -74,7 +74,7 @@ public class WhoCommand extends ChatCommandBase {
 
 		final List<String> visibleMembers = new ArrayList<String>();
 		for (final String member : channel.members) {
-			final Player player = this.plugin.getServer().getPlayerExact(member);
+			final Player player = Util.getPlayer(member, false);
 			if (player == null) {
 				continue;
 			}
@@ -110,7 +110,7 @@ public class WhoCommand extends ChatCommandBase {
 				}
 
 				final Chatter chatter = this.plugin.channelHandler.chatterForPlayer(member);
-				final Player player = this.plugin.getServer().getPlayerExact(member);
+				final Player player = Util.getPlayer(member, false);
 
 				if (player != null) { // No idea why it could be null now, as we checked in the previous loop, but may as well check
 					if (!channel.inWorld(player.getWorld().getName())) {

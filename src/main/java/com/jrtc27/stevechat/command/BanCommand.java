@@ -60,7 +60,7 @@ public class BanCommand extends ChatCommandBase {
 			return true;
 		}
 
-		final Player onlinePlayer = this.plugin.getServer().getPlayerExact(player);
+		final Player onlinePlayer = Util.getPlayer(player, false);
 
 		if (channel.isBanned(player)) {
 			channel.unbanPlayer(player);

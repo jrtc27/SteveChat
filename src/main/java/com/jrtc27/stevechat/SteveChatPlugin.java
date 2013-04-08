@@ -123,6 +123,7 @@ public class SteveChatPlugin extends JavaPlugin {
 	}
 
 	public void reload(final boolean readLockAcquired, final CommandSender sender) {
+		this.broadcastReloadStarted(sender);
 		if (readLockAcquired) {
 			this.loadingLock.readLock().unlock(); // So we can acquire a write lock
 		}
@@ -139,7 +140,7 @@ public class SteveChatPlugin extends JavaPlugin {
 					for (final Player player : this.getServer().getOnlinePlayers()) {
 						this.channelHandler.handlePlayerJoin(player);
 					}
-					this.broadcastReload(sender);
+					this.broadcastReloadFinished(sender);
 				} finally {
 					if (readLockAcquired) {
 						this.loadingLock.readLock().lock(); // Reacquire read lock as the calling method is expecting to have to unlock it
@@ -207,8 +208,26 @@ public class SteveChatPlugin extends JavaPlugin {
 		}
 	}
 
-	public void broadcastReload(final CommandSender sender) {
-		final String message = ChatColor.YELLOW + this.pdf.getName() + " version " + this.getVersion() + " reloaded!";
+	public void broadcastReloadStarted(final CommandSender sender) {
+		final String starter;
+		if (sender instanceof Player) {
+			starter = ((Player) sender).getDisplayName();
+		} else {
+			starter = ChatColor.GOLD + "[" + sender.getName() + "]";
+		}
+		final String message = MessageColor.INFO + "[" + this.pdf.getName() + "] Reload started by " + starter;
+
+		this.getServer().getConsoleSender().sendMessage(message);
+
+		for (final Player player : this.getServer().getOnlinePlayers()) {
+			if (Util.hasCachedPermission(player, SCPermission.ADMIN_MESSAGES, null) || player.equals(sender)) {
+				player.sendMessage(message);
+			}
+		}
+	}
+
+	public void broadcastReloadFinished(final CommandSender sender) {
+		final String message = MessageColor.INFO + "[" + this.pdf.getName() + "] Reloaded!";
 
 		this.getServer().getConsoleSender().sendMessage(message);
 
@@ -220,7 +239,7 @@ public class SteveChatPlugin extends JavaPlugin {
 	}
 
 	public void broadcastReloadFailed(final CommandSender sender) {
-		final String message = MessageColor.ERROR + this.pdf.getName() + " version " + this.getVersion() + " failed to reload!";
+		final String message = MessageColor.ERROR + "[" + this.pdf.getName() + "] Failed to reload!";
 
 		this.getServer().getConsoleSender().sendMessage(message);
 
@@ -243,7 +262,7 @@ public class SteveChatPlugin extends JavaPlugin {
 				if (this.isVersionNewer(this.version, version)) {
 					final String message = "A new recommended version (" + version + ") is available - please update for new features and fixes!";
 					this.logInfo(message);
-					final String playerMessage = "[SteveChat] " + message;
+					final String playerMessage = MessageColor.INFO + "[" + this.pdf.getName() + "] " + message;
 					this.broadcastAdminMessage(playerMessage, false);
 					this.adminMessage = playerMessage;
 				} else {

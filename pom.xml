@@ -177,6 +177,7 @@
                                     <exclude>org.bukkit:*</exclude>
                                     <exclude>net.milkbowl.vault:Vault</exclude>
                                     <exclude>com.earth2me.essentials:Essentials</exclude>
+                                    <exclude>com.google.guava:guava</exclude>
                                 </excludes>
                             </artifactSet>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -211,10 +212,6 @@
                                 <relocation>
                                     <pattern>javassist</pattern>
                                     <shadedPattern>com.jrtc27.stevechat.libs.javassist</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.google</pattern>
-                                    <shadedPattern>com.jrtc27.stevechat.libs.com.google</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>javax.annotation</pattern>

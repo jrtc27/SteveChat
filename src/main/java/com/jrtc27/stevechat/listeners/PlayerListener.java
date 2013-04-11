@@ -380,6 +380,15 @@ public class PlayerListener implements Listener, TabExecutor {
 						}
 					}
 				}
+			} else {
+				final ChatCommandBase commandBase = this.chatCommandsMap.get(command.getName());
+				if (commandBase != null && commandBase.canBeRoot()) {
+					if (commandBase.testPermissionSilent(sender)) {
+						return commandBase.onTabComplete(sender, args);
+					} else {
+						return ImmutableList.<String>of();
+					}
+				}
 			}
 			return null;
 		} finally {

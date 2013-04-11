@@ -1,6 +1,8 @@
 package com.jrtc27.stevechat.command;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
@@ -60,7 +62,7 @@ public class BanCommand extends ChatCommandBase {
 			return true;
 		}
 
-		final Player onlinePlayer = Util.getPlayer(player, false);
+		final Player onlinePlayer = Util.getPlayer(player, true);
 
 		if (channel.isBanned(player)) {
 			channel.unbanPlayer(player);
@@ -76,6 +78,14 @@ public class BanCommand extends ChatCommandBase {
 			sender.sendMessage(MessageColor.PLAYER + player + MessageColor.INFO + " has been banned from " + channel.getColor() + channel.getName() + MessageColor.INFO + ".");
 			final Chatter onlineChatter = this.plugin.channelHandler.chatterForPlayer(player);
 			synchronized (onlineChatter) {
+				final Collection<String> toRemove = new HashSet<String>();
+				for (final String channelName : onlineChatter.channelsToJoin) {
+					final Channel toJoin = this.plugin.channelHandler.getChannelByName(channelName);
+					if (toJoin != null && toJoin.equals(channel)) {
+						toRemove.add(channelName);
+					}
+				}
+				onlineChatter.channelsToJoin.removeAll(toRemove);
 				if (channel.equals(onlineChatter.getActiveChannel())) {
 					onlineChatter.setActiveChannel(null);
 				}

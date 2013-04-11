@@ -1,6 +1,8 @@
 package com.jrtc27.stevechat.command;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.bukkit.command.CommandSender;
@@ -60,12 +62,20 @@ public class KickCommand extends ChatCommandBase {
 			return true;
 		}
 
-		final Player onlinePlayer = Util.getPlayer(player, false);
+		final Player onlinePlayer = Util.getPlayer(player, true);
 		final Chatter onlineChatter = this.plugin.channelHandler.chatterForPlayer(player);
 
 		channel.removeMember(player);
 
 		synchronized (onlineChatter) {
+			final Collection<String> toRemove = new HashSet<String>();
+			for (final String channelName : onlineChatter.channelsToJoin) {
+				final Channel toJoin = this.plugin.channelHandler.getChannelByName(channelName);
+				if (toJoin != null && toJoin.equals(channel)) {
+					toRemove.add(channelName);
+				}
+			}
+			onlineChatter.channelsToJoin.removeAll(toRemove);
 			if (channel.equals(onlineChatter.getActiveChannel())) {
 				onlineChatter.setActiveChannel(null);
 			}

@@ -47,7 +47,7 @@ public class MuteCommand extends ChatCommandBase {
 				return true;
 			}
 
-			final Player onlinePlayer = Util.getPlayer(player, false);
+			final Player onlinePlayer = Util.getPlayer(player, true);
 
 			if (channel.isMuted(player)) {
 				channel.unmutePlayer(player);
@@ -70,7 +70,7 @@ public class MuteCommand extends ChatCommandBase {
 			}
 
 			final Chatter chatter = this.plugin.channelHandler.chatterForPlayer(player);
-			final Player onlinePlayer = Util.getPlayer(player, false);
+			final Player onlinePlayer = Util.getPlayer(player, true);
 
 			final boolean nowMuted;
 

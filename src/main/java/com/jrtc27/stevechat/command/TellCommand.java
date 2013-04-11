@@ -73,7 +73,7 @@ public class TellCommand extends ChatCommandBase {
 		recipient.sendMessage(this.plugin.channelHandler.formatPM(true, sender, sender, message));
 
 		if (recipient instanceof Player) {
-			final Chatter chatter = this.plugin.channelHandler.chatterForPlayer(recipientName);
+			final Chatter chatter = this.plugin.channelHandler.chatterForPlayer(recipient.getName());
 
 			if (sender instanceof Player) {
 				chatter.setLastConverser(sender.getName());

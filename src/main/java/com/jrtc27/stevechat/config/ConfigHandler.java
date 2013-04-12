@@ -57,6 +57,7 @@ public class ConfigHandler {
 	public void saveAll() {
 		this.saveChatters();
 		this.saveChannels();
+		this.cleanup();
 	}
 
 	public void saveChatters() {
@@ -65,6 +66,10 @@ public class ConfigHandler {
 
 	public void saveChannels() {
 		this.channelConfig.saveModified();
+	}
+
+	public void cleanup() {
+		this.chatterConfig.cleanup();
 	}
 
 	/**

@@ -13,19 +13,23 @@ import java.util.Set;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import com.jrtc27.stevechat.Channel;
 import com.jrtc27.stevechat.Chatter;
 import com.jrtc27.stevechat.SteveChatPlugin;
+import com.jrtc27.stevechat.Util;
 
 public class ChatterConfigHandler {
 	private final SteveChatPlugin plugin;
+
+	private static final long UNLOAD_TIME_MILLIS = 60000;
 
 	public ChatterConfigHandler(final SteveChatPlugin plugin) {
 		this.plugin = plugin;
 	}
 
-	private File getChattersFolder() {
+	private synchronized File getChattersFolder() {
 		final File dataFolder = this.plugin.getDataFolder();
 		if (!dataFolder.exists()) {
 			if (!dataFolder.mkdir()) {
@@ -50,7 +54,7 @@ public class ChatterConfigHandler {
 		return chattersFolder;
 	}
 
-	public Chatter loadChatter(final String name) {
+	public synchronized Chatter loadChatter(final String name) {
 		final File chattersFolder = this.getChattersFolder();
 		if (chattersFolder == null) return null;
 
@@ -102,7 +106,7 @@ public class ChatterConfigHandler {
 		return chatter;
 	}
 
-	public void saveModified() {
+	public synchronized void saveModified() {
 		final File chattersFolder = this.getChattersFolder();
 		if (chattersFolder == null) return;
 
@@ -158,5 +162,21 @@ public class ChatterConfigHandler {
 				}
 			}
 		}
+	}
+
+	public synchronized void cleanup() {
+		long time = System.currentTimeMillis();
+
+		final Iterable<Chatter> chatters = this.plugin.channelHandler.getAllChatters();
+
+		final Set<Chatter> toRemove = new HashSet<Chatter>();
+		for (final Chatter chatter : chatters) {
+			final Player player = Util.getPlayer(chatter.playerName, true);
+			if (player == null && !chatter.isModified() && time - chatter.getLogoutTime() > UNLOAD_TIME_MILLIS) {
+				toRemove.add(chatter);
+			}
+		}
+
+		this.plugin.channelHandler.removeChatters(toRemove);
 	}
 }

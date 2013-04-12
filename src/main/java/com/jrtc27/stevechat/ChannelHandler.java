@@ -1,6 +1,7 @@
 package com.jrtc27.stevechat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -169,6 +170,7 @@ public class ChannelHandler {
 			}
 
 			chatter.setChannelsToJoin(channels);
+			chatter.updateLogoutTime();
 			chatter.setModified(true);
 		}
 	}
@@ -225,6 +227,14 @@ public class ChannelHandler {
 
 	public Iterable<Chatter> getAllChatters() {
 		return this.chatters.values();
+	}
+
+	public void removeChatter(final Chatter toRemove) {
+		this.chatters.values().remove(toRemove);
+	}
+
+	public void removeChatters(final Collection<Chatter> toRemove) {
+		this.chatters.values().removeAll(toRemove);
 	}
 
 	public String formatPM(final boolean from, final CommandSender sender, final CommandSender partner, final String message) {

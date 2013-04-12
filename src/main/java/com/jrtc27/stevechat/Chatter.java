@@ -16,6 +16,7 @@ public class Chatter {
 	public final Set<String> channelsToJoin = new CopyOnWriteArraySet<String>();
 
 	private boolean modified = false;
+	private long logoutTime = System.currentTimeMillis();
 
 	private boolean afk = false;
 	private String afkMessage = null;
@@ -142,5 +143,13 @@ public class Chatter {
 			message = "I am currently afk";
 		}
 		return message;
+	}
+
+	public long getLogoutTime() {
+		return this.logoutTime;
+	}
+
+	public void updateLogoutTime() {
+		this.logoutTime = System.currentTimeMillis();
 	}
 }

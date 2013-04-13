@@ -178,6 +178,8 @@
                                     <exclude>net.milkbowl.vault:Vault</exclude>
                                     <exclude>com.earth2me.essentials:Essentials</exclude>
                                     <exclude>com.google.guava:guava</exclude>
+                                    <exclude>com.google.code.findugs:jsr305</exclude>
+                                    <exclude>javassist:javassist</exclude>
                                 </excludes>
                             </artifactSet>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
@@ -208,14 +210,6 @@
                                 <relocation>
                                     <pattern>org.dom4j</pattern>
                                     <shadedPattern>com.jrtc27.stevechat.libs.org.dom4j</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javassist</pattern>
-                                    <shadedPattern>com.jrtc27.stevechat.libs.javassist</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>javax.annotation</pattern>
-                                    <shadedPattern>com.jrtc27.stevechat.libs.javax.annotation</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

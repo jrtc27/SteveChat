@@ -107,18 +107,20 @@ public class SteveChatPlugin extends JavaPlugin {
 		if (this.version == null || this.version.equalsIgnoreCase("${project.version}")) {
 			this.logSevere("Error reading version info file!");
 			this.adminMessage = null;
-		} else if (this.version.endsWith("-SNAPSHOT")) {
-			this.logWarning("You are currently running a snapshot version - please be aware that there may be (serious) bugs!");
-			this.adminMessage = null;
-		} else if (this.checkForUpdates) {
-			this.updateCheckTask = this.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
-				@Override
-				public void run() {
-					checkForUpdates();
-				}
-			}, 20, 432000); // 20 ticks * 60 seconds * 60 minutes * 6 hours => 6 hours in ticks
 		} else {
-			this.logInfo("Update checking has been disabled!");
+			if (this.version.endsWith("-SNAPSHOT")) {
+				this.logWarning("You are currently running a snapshot version - please be aware that there may be (serious) bugs!");
+			}
+			if (this.checkForUpdates) {
+				this.updateCheckTask = this.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable() {
+					@Override
+					public void run() {
+						checkForUpdates();
+					}
+				}, 20, 432000); // 20 ticks * 60 seconds * 60 minutes * 6 hours => 6 hours in ticks
+			} else {
+				this.logInfo("Update checking has been disabled!");
+			}
 		}
 	}
 
@@ -285,7 +287,11 @@ public class SteveChatPlugin extends JavaPlugin {
 	}
 
 	private boolean isVersionNewer(final String current, final String reported) {
-		final String[] currentElements = current.split("\\.");
+		int snapshotIndex = current.lastIndexOf("-SNAPSHOT");
+		boolean isSnapshot = false;
+		if (snapshotIndex < 0) snapshotIndex = current.length();
+		else isSnapshot = true;
+		final String[] currentElements = current.substring(0, snapshotIndex).split("\\.");
 		final String[] reportedElements = reported.split("\\.");
 		final int length = Math.min(currentElements.length, reportedElements.length);
 		for (int i = 0; i < length; i++) {
@@ -299,7 +305,11 @@ public class SteveChatPlugin extends JavaPlugin {
 			if (reportedInt > currentInt) return true;
 			else if (reportedInt < currentInt) return false;
 		}
-		return reportedElements.length > currentElements.length;
+		if (isSnapshot) {
+			return reportedElements.length >= currentElements.length;
+		} else {
+			return reportedElements.length > currentElements.length;
+		}
 	}
 
 }

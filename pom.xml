@@ -173,14 +173,11 @@
                         </goals>
                         <configuration>
                             <artifactSet>
-                                <excludes>
-                                    <exclude>org.bukkit:*</exclude>
-                                    <exclude>net.milkbowl.vault:Vault</exclude>
-                                    <exclude>com.earth2me.essentials:Essentials</exclude>
-                                    <exclude>com.google.guava:guava</exclude>
-                                    <exclude>com.google.code.findugs:jsr305</exclude>
-                                    <exclude>javassist:javassist</exclude>
-                                </excludes>
+                                <includes>
+                                    <include>org.reflections:reflections</include>
+                                    <include>dom4j:dom4j</include>
+                                    <include>xml-apis:xml-apis</include>
+                                </includes>
                             </artifactSet>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>true</minimizeJar>
@@ -367,14 +364,14 @@
             <artifactId>bukkit</artifactId>
             <version>1.5.1-R0.1</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
             <version>1.2.22-SNAPSHOT</version>
             <type>jar</type>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.reflections</groupId>

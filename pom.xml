@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jrtc27</groupId>
     <artifactId>SteveChat</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.4</version>
     <name>SteveChat</name>
     <prerequisites>
         <maven>3.0</maven>
@@ -38,7 +38,7 @@
         <connection>scm:git:git://github.com/jrtc27/SteveChat.git</connection>
         <url>https://github.com/jrtc27/SteveChat</url>
         <developerConnection>scm:git:git@github.com:jrtc27/SteveChat.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>0.4</tag>
     </scm>
 
     <ciManagement>
